@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <title>Đăng ký tài khoản</title>
+    <style>
+        body {
+            background-color: aquamarine;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        input {
+            background-color: cadetblue;
+            color: white;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
 </head>
+
 <body>
 
     <h1>Đăng ký tài khoản!</h1>
@@ -11,41 +26,46 @@
     <p>Nhập và lựa chọn các thông tin đăng ký.</p>
 
     <form action="submit-registration" method="POST">
-        
+
         <div>
-            <input type="text" id="ten" name="ten" placeholder="Tên"> 
-            
+            <input type="text" id="ten" name="ten" placeholder="Tên">
+
             <input type="text" id="ho_dem" name="ho_dem" placeholder="Họ đệm">
         </div>
 
-        <br> <div>
+        <br>
+        <div>
             <input type="email" id="email" name="email" placeholder="Địa chỉ Email">
-            
+
             <input type="tel" id="so_dien_thoai" name="so_dien_thoai" placeholder="Số điện thoại">
         </div>
 
-        <br> <div>
+        <br>
+        <div>
             <select id="thanh_pho" name="thanh_pho">
                 <option value="" disabled selected>Chọn thành phố</option>
                 <option value="HN">Hà Nội</option>
                 <option value="HCM">TP. Hồ Chí Minh</option>
                 <option value="DN">Đà Nẵng</option>
-                </select>
-            
+            </select>
+
             <select id="tinh" name="tinh">
                 <option value="" disabled selected>Chọn tỉnh</option>
                 <option value="BG">Quảng Ngãi</option>
                 <option value="HD">Thanh Hóa</option>
                 <option value="HP">Hải Phòng</option>
-                </select>
+            </select>
         </div>
 
-        <br> <div>
-            <label for="ghi_chu">Ghi chú</label><br> <textarea id="ghi_chu" name="ghi_chu" rows="5" cols="50" placeholder="Thêm ghi chú của bạn..."></textarea>
+        <br>
+        <div>
+            <label for="ghi_chu">Ghi chú</label><br> <textarea id="ghi_chu" name="ghi_chu" rows="5" cols="50"
+                placeholder="Thêm ghi chú của bạn..."></textarea>
         </div>
 
         <br> <button type="submit">Đăng ký</button>
-        </form>
-    
+    </form>
+
 </body>
+
 </html>
