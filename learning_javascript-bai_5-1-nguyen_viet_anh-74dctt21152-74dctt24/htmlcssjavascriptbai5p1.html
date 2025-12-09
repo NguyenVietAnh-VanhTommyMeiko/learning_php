@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Đăng ký tài khoản</title>
+    <style>
+        body {
+            background-color: aquamarine;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        input {
+            background-color: cadetblue;
+            color: white;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        option {
+            background-color: blue;
+            color: white;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        textarea {
+            background-color: brown;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Thêm style cho phần thông báo */
+        #thongBao {
+            padding: 10px;
+            margin-top: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            display: none; /* Ban đầu ẩn */
+            font-weight: bold;
+        }
+
+        .thanhCong {
+            color: darkgreen;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .loi {
+            color: darkred;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Đăng ký tài khoản!</h1>
+
+    <p>Nhập và lựa chọn các thông tin đăng ký.</p>
+
+    <form id="myForm" novalidate>
+        <div>
+            <input type="text" id="ho_dem" name="ho_dem" placeholder="Họ đệm" required>
+            <input type="text" id="ten" name="ten" placeholder="Tên" required>
+        </div>
+
+        <br>
+        <div>
+            <input type="email" id="email" name="email" placeholder="Địa chỉ Email" required>
+            <input type="tel" id="so_dien_thoai" name="so_dien_thoai" placeholder="Số điện thoại" required>
+        </div>
+
+        <br>
+        <div>
+            <select id="thanh_pho" name="thanh_pho" required>
+                <option value="" disabled selected>Chọn thành phố</option>
+                <option value="HN">Hà Nội</option>
+                <option value="HCM">TP. Hồ Chí Minh</option>
+                <option value="DN">Đà Nẵng</option>
+            </select>
+
+            <select id="tinh" name="tinh" required>
+                <option value="" disabled selected>Chọn tỉnh</option>
+                <option value="QN">Quảng Ngãi</option>
+                <option value="TH">Thanh Hóa</option>
+                <option value="HP">Hải Phòng</option>
+            </select>
+        </div>
+
+        <br>
+        <div>
+            <label for="ghi_chu">Ghi chú</label><br> <textarea id="ghi_chu" name="ghi_chu" rows="5" cols="50"
+                placeholder="Thêm ghi chú của bạn..."></textarea>
+        </div>
+
+        <br> <button type="submit">Đăng ký</button>
+    </form>
+
+    <div id="thongBao"></div>
+
+    <script>
+    // Lấy form bằng ID
+    const form = document.getElementById('myForm');
+    // Lấy khu vực thông báo bằng ID
+    const thongBaoDiv = document.getElementById('thongBao');
+
+    // Hàm hiển thị thông báo
+    function hienThiThongBao(message, isSuccess) {
+        thongBaoDiv.textContent = message;
+        thongBaoDiv.style.display = 'block'; // Hiển thị div
+
+        // Xóa các class cũ
+        thongBaoDiv.classList.remove('loi', 'thanhCong');
+
+        // Thêm class mới tương ứng với loại thông báo
+        if (isSuccess) {
+            thongBaoDiv.classList.add('thanhCong');
+        } else {
+            thongBaoDiv.classList.add('loi');
+        }
+    }
+
+    // Thêm trình lắng nghe sự kiện 'submit'
+    form.addEventListener('submit', function (event) {
+        // Ngăn chặn hành vi gửi form mặc định (tải lại trang) để kiểm tra
+        event.preventDefault();
+
+        // Dùng form.checkValidity() để kiểm tra tất cả các trường có thuộc tính 'required'
+        // Đây là cách duy nhất để kiểm tra khi đã thêm novalidate
+        if (form.checkValidity()) {
+            // Nếu form hợp lệ (tất cả các trường required đã được điền)
+
+            // Lấy giá trị từ các trường input và select
+            const hoDem = document.getElementById('ho_dem').value;
+            const ten = document.getElementById('ten').value;
+            const email = document.getElementById('email').value;
+            const soDienThoai = document.getElementById('so_dien_thoai').value;
+            const thanhPho = document.getElementById('thanh_pho').value;
+            const tinh = document.getElementById('tinh').value;
+            const ghiChu = document.getElementById('ghi_chu').value;
+
+            console.log('--- Thông tin đăng ký HỢP LỆ ---');
+            console.log('Họ đệm:', hoDem);
+            console.log('Tên:', ten);
+            console.log('Email:', email);
+            console.log('Số điện thoại:', soDienThoai);
+            console.log('Thành phố:', thanhPho);
+            console.log('Tỉnh:', tinh);
+            console.log('Ghi chú:', ghiChu);
+            console.log('-------------------------');
+
+            // Hiển thị thông báo MÀU XANH TÙY CHỈNH
+            hienThiThongBao('Đăng ký thành công! (Dữ liệu đã được log ra console)', true);
+
+        } else {
+            // Nếu form KHÔNG hợp lệ (có trường required bị thiếu)
+            
+            // Hiển thị thông báo MÀU ĐỎ TÙY CHỈNH
+            // Lưu ý: Trình duyệt sẽ KHÔNG hiển thị lỗi mặc định nhờ thuộc tính novalidate
+            hienThiThongBao('Vui lòng điền đầy đủ các thông tin bắt buộc trước khi đăng ký!', false);
+        }
+    });
+</script>
+
+</body>
+
+</html>
