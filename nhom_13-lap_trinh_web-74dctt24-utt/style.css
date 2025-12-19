@@ -1,0 +1,217 @@
+/* ======================
+   RESET CƠ BẢN
+====================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ======================
+   SIDEBAR
+====================== */
+aside {
+    width: 220px;
+    background-color: #1e293b;
+    color: #fff;
+}
+
+aside nav ul {
+    list-style: none;
+}
+
+aside nav ul li {
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+aside nav ul li:hover {
+    background-color: #334155;
+}
+
+/* ======================
+   MAIN CONTENT
+====================== */
+main {
+    flex: 1;
+    padding: 25px;
+}
+
+/* ======================
+   SECTION CHUNG (BOX)
+====================== */
+section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+section h2 {
+    margin-bottom: 15px;
+    color: #1e40af;
+    font-size: 20px;
+}
+
+/* ======================
+   HỒ SƠ SINH VIÊN
+====================== */
+#student-profile header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#student-profile header button {
+    padding: 8px 14px;
+    background-color: #2563eb;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#student-profile header button:hover {
+    background-color: #1d4ed8;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.profile-header img {
+    border-radius: 50%;
+    border: 2px solid #2563eb;
+}
+
+.profile-header h3 {
+    color: #111827;
+}
+
+/* ======================
+   INFO GROUP
+====================== */
+.info-group {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+}
+
+.info-group h4 {
+    margin-bottom: 10px;
+    color: #2563eb;
+}
+
+.info-group p {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+/* ======================
+   BẢNG + TABLE
+====================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th,
+table td {
+    border: 1px solid #e5e7eb;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #2563eb;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+/* ======================
+   BUTTON CHUNG
+====================== */
+button {
+    padding: 7px 12px;
+    background-color: #10b981;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #059669;
+}
+
+/* ======================
+   COURSE REGISTRATION
+====================== */
+.summary {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* ======================
+   BẢNG ĐIỂM
+====================== */
+#academic-grades p {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* ======================
+   THÔNG BÁO
+====================== */
+#announcements article {
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+#announcements article h3 {
+    margin-bottom: 5px;
+    color: #1f2933;
+}
+
+#announcements article p {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+/* ======================
+   HỌC PHÍ
+====================== */
+.tuition-status {
+    margin-bottom: 15px;
+}
+
+progress {
+    width: 200px;
+    height: 15px;
+    vertical-align: middle;
+}
