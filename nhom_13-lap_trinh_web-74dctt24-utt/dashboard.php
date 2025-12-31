@@ -84,7 +84,7 @@ function getClassification($score) {
                     <?php endwhile; ?>
                 </select>
                 <button type="submit" class="btn btn-primary">Tìm & Lọc</button>
-                <a href="dashboard.php" class="btn" style="background: #eee; color: #333; text-decoration: none; line-height: 2.5; padding: 0 15px; border-radius: 6px;">Reset</a>
+                <a href="dashboard.php" class="btn" style="background: #eee; color: #333; text-decoration: none; line-height: 2.5; padding: 0 15px; border-radius: 6px;">Reload</a>
             </form>
         </div>
 
@@ -100,6 +100,7 @@ function getClassification($score) {
                         <th>Mã SV</th>
                         <th>Họ Tên</th>
                         <th>Lớp - Khoa</th>
+                        <th>Email</th>
                         <th>Điểm TB</th>
                         <th>Xếp loại</th>
                         <th>Hành động</th>
@@ -113,6 +114,7 @@ function getClassification($score) {
                         <td><b><?php echo $row['student_code']; ?></b></td>
                         <td><?php echo $row['fullname']; ?></td>
                         <td><?php echo $row['class_name']; ?> - <small><?php echo $row['department']; ?></small></td>
+                        <td><?php echo $row['email']; ?></td>
                         <td><b style="color: var(--primary);"><?php echo number_format($row['average_grade'], 1); ?></b></td>
                         <td>
                             <span class="grade-badge" style="background: <?php echo $classInfo[1]; ?>;">
