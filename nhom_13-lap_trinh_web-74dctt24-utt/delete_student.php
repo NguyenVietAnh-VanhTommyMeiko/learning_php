@@ -1,26 +1,30 @@
 <?php
-// delete_student.php
-require_once 'config.php';
+session_start();
+// 1. Đồng bộ file kết nối (Sử dụng db.php theo các file trước đó)
+require_once 'db.php';
 
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
-    exit();
+// 2. Kiểm tra quyền admin
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
+    die("Bạn không có quyền thực hiện hành động này.");
 }
 
+// 3. Kiểm tra và thực hiện xóa
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    // Sử dụng mysqli_real_escape_string để bảo mật SQL Injection
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
     
-    // Dùng prepared statement để xóa
-    $stmt = $conn->prepare("DELETE FROM students WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    // SỬA LỖI: Đổi tên cột từ 'id' thành 'student_id' cho khớp với Database
+    $sql = "DELETE FROM students WHERE student_id = '$id'";
     
-    if ($stmt->execute()) {
-        header("Location: dashboard.php");
+    if (mysqli_query($conn, $sql)) {
+        // Chuyển hướng về trang students.php thay vì dashboard.php
+        header("Location: students.php?msg=deleted");
+        exit();
     } else {
-        echo "Có lỗi xảy ra khi xóa.";
+        echo "Lỗi khi xóa sinh viên: " . mysqli_error($conn);
     }
-    $stmt->close();
 } else {
-    header("Location: dashboard.php");
+    header("Location: students.php");
+    exit();
 }
 ?>

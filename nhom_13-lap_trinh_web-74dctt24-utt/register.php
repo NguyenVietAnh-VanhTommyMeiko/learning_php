@@ -1,69 +1,40 @@
 <?php
-require_once 'config.php';
-$error = ''; $success = '';
+include 'db_connect.php';
+$msg = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = trim($_POST['username']);
-    $pass = $_POST['password']; // Mật khẩu thường (ví dụ: 123abc)
-    $fname = trim($_POST['fullname']);
-    $role = $_POST['role'];
+if (isset($_POST['register'])) {
+    $u = $_POST['username'];
+    $p = $_POST['password'];
+    $n = $_POST['full_name'];
+    $r = $_POST['role'];
 
-    $check = $conn->prepare("SELECT username FROM users WHERE username = ?");
-    $check->bind_param("s", $user);
-    $check->execute();
-    if ($check->get_result()->num_rows > 0) {
-        $error = "Tên đăng nhập này đã tồn tại!";
+    $check = mysqli_query($conn, "SELECT id FROM users WHERE username='$u'");
+    if (mysqli_num_rows($check) > 0) {
+        $msg = "Tên tài khoản đã tồn tại!";
     } else {
-        // Lưu trực tiếp biến $pass không qua mã hóa
-        $stmt = $conn->prepare("INSERT INTO users (username, password, fullname, role) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $user, $pass, $fname, $role);
-        if ($stmt->execute()) {
-            $success = "Đăng ký giáo viên thành công!";
-            header("refresh:1;url=index.php");
-        }
+        mysqli_query($conn, "INSERT INTO users (username, password, full_name, role) VALUES ('$u', '$p', '$n', '$r')");
+        $msg = "Đăng ký thành công! <a href='login.php'>Đăng nhập ngay</a>";
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Đăng ký giáo viên</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body style="display: flex; align-items: center; min-height: 100vh; background: #f1f5f9;">
-    <div class="form-wrapper">
-        <h2 style="text-align: center; color: var(--primary);">ĐĂNG KÝ GIÁO VIÊN</h2>
-        <?php if($error): ?><div class="alert alert-error"><?php echo $error; ?></div><?php endif; ?>
-        <?php if($success): ?><div class="alert alert-success"><?php echo $success; ?></div><?php endif; ?>
-        
+<html>
+<head><link rel="stylesheet" href="style.css"><title>Đăng ký</title></head>
+<body style="background: #2c3e50; display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div class="container" style="width: 400px; min-height: auto;">
+        <h2 style="text-align: center;">TẠO TÀI KHOẢN</h2>
+        <?php if($msg) echo "<p>$msg</p>"; ?>
         <form method="POST">
-            <div class="form-group">
-                <label>Tên đăng nhập</label>
-                <input type="text" name="username" class="form-control" placeholder="VD: teacher_01" required>
-            </div>
-            <div class="form-group">
-                <label>Mật khẩu</label>
-                <div class="password-wrapper">
-                    <input type="password" name="password" id="reg-pass" class="form-control" required>
-                    <span class="toggle-password" onclick="togglePass('reg-pass')">Hiện</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Họ và tên thật</label>
-                <input type="text" name="fullname" class="form-control" placeholder="VD: Nguyễn Văn A" required>
-            </div>
-            <div class="form-group">
-                <label>Vai trò hệ thống</label>
-                <select name="role" class="form-control">
-                    <option value="Giáo vụ">Giáo vụ</option>
-                    <option value="Admin">Admin</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Đăng ký</button>
+            <input type="text" name="full_name" placeholder="Họ tên đầy đủ" required style="width: 95%; margin-bottom: 10px;">
+            <input type="text" name="username" placeholder="Tên đăng nhập" required style="width: 95%; margin-bottom: 10px;">
+            <input type="password" name="password" placeholder="Mật khẩu" required style="width: 95%; margin-bottom: 10px;">
+            <select name="role" style="width: 100%; margin-bottom: 15px;">
+                <option value="student">Sinh viên</option>
+                <option value="admin">Admin (Giáo vụ)</option>
+            </select>
+            <button type="submit" name="register" class="btn btn-add" style="width: 100%;">Đăng ký</button>
+            <p style="text-align: center;"><a href="login.php">Quay lại đăng nhập</a></p>
         </form>
-        <p style="text-align: center; margin-top: 15px;"><a href="index.php">Quay lại Đăng nhập</a></p>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>

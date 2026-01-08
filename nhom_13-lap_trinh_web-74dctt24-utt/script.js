@@ -1,50 +1,31 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Xác nhận khi xóa
-    const deleteButtons = document.querySelectorAll('.delete-btn');
-    deleteButtons.forEach(btn => {
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Xác nhận khi xóa
+    const deleteBtns = document.querySelectorAll('.btn-delete');
+    deleteBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
-            // Lấy tên sinh viên từ dòng tương ứng (nếu có) để thông báo chi tiết hơn
-            const row = this.closest('tr');
-            const studentName = row ? row.cells[1].innerText : "sinh viên này";
-            
-            const confirmDelete = confirm(`Bạn có chắc chắn muốn xóa sinh viên: ${studentName}?\nHành động này không thể hoàn tác!`);
-            
-            if (!confirmDelete) {
-                e.preventDefault(); // Ngăn việc chuyển hướng đến file delete_student.php
-            }
-        });
-    });
-    // Chức năng ẩn/hiện mật khẩu
-    window.togglePass = function(id) {
-        const passwordInput = document.getElementById(id);
-        const toggleBtn = passwordInput.nextElementSibling; // Tìm thẻ span ngay sau input
-
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            toggleBtn.textContent = "Ẩn";
-        } else {
-            passwordInput.type = "password";
-            toggleBtn.textContent = "Hiện";
-        }
-    };
-
-    // 2. Xác nhận Đăng xuất (Áp dụng cho mọi trang có nút .btn-logout)
-    const logoutBtns = document.querySelectorAll('.btn-logout');
-    logoutBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const confirmLogout = confirm("Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?");
-            if (!confirmLogout) {
+            if (!confirm('Bạn có chắc chắn muốn xóa mục này?')) {
                 e.preventDefault();
             }
         });
     });
 
-    // Tự động ẩn thông báo sau 3 giây
-    const alerts = document.querySelectorAll('.alert');
-    alerts.forEach(alert => {
+    // 2. Tự động ẩn thông báo sau 3 giây
+    const alertMsg = document.querySelector('.alert');
+    if (alertMsg) {
         setTimeout(() => {
-            alert.style.opacity = '0';
-            setTimeout(() => alert.remove(), 500);
+            alertMsg.style.display = 'none';
         }, 3000);
-    });
+    }
+
+    // 3. Kiểm tra file trước khi upload
+    const fileInput = document.querySelector('input[name="excel_file"]');
+    const importForm = document.querySelector('form[enctype="multipart/form-data"]');
+    if (importForm && fileInput) {
+        importForm.addEventListener('submit', function(e) {
+            if (fileInput.files.length === 0) {
+                alert('Vui lòng chọn file Excel (.xlsx) trước!');
+                e.preventDefault();
+            }
+        });
+    }
 });
